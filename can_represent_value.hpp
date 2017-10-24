@@ -43,12 +43,9 @@ namespace Utils
 		return (std::numeric_limits<OldT>::max() <= std::numeric_limits<NewT>::max());
 	}
 	template<class OldT, class NewT>
-	constexpr bool  can_represent_value()
-	{
-		return can_represent_max<OldT, NewT>() && can_represent_min<OldT, NewT>();
-	}
+	constexpr bool  can_represent_v=can_represent_max<OldT, NewT>() && can_represent_min<OldT, NewT>();
 	//Struct for when you need type dispatching
 	template <class OldT, class NewT>
-	struct Can_represent_value :std::integral_constant<bool, can_represent_value<OldT, NewT>()> {};
+	struct Can_represent_value :std::integral_constant<bool, can_represent_v<OldT, NewT>> {};
 }	
 #endif // !CAN_REPRESENT_VALUE_HPP
