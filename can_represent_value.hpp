@@ -4,6 +4,11 @@
 #include <type_traits>
 namespace Utils
 {
+	//TODO:
+	//1)Check correctly if a NewType can represent OldType
+	//This is true when:
+	// NewType max >= OldType max && NewType min <= OldType min
+	//2) Add doxygen documentation
 	//Signed - Signed
 	template <class OldT, class NewT>
 	constexpr  typename std::enable_if<std::is_signed<OldT>::value && std::is_signed<NewT>::value, bool>::type can_represent_min()
@@ -42,13 +47,10 @@ namespace Utils
 		//case this is the unsigned  we are comparing against
 		return (std::numeric_limits<OldT>::max() <= std::numeric_limits<NewT>::max());
 	}
-	template<class OldT, class NewT>
-	constexpr bool  can_represent_value()
-	{
-		return can_represent_max<OldT, NewT>() && can_represent_min<OldT, NewT>();
-	}
+	template<class OldType,class NewType>
+	constexpr bool can_represent_v=can_represent_max<OldType, NewType>() && can_represent_min<OldType, NewType>();
 	//Struct for when you need type dispatching
-	template <class OldT, class NewT>
-	struct Can_represent_value :std::integral_constant<bool, can_represent_value<OldT, NewT>()> {};
+	template <class OldType, class NewType>
+	struct Can_represent_value :std::integral_constant<bool, can_represent_v<OldType, NewType>> {};
 }	
 #endif // !CAN_REPRESENT_VALUE_HPP
