@@ -5,7 +5,7 @@ namespace Utils
 {
 
     template<template<typename...>
-            typename... Metafunction>
+            class... Metafunction>
     struct metafunction_list
     {
     };
@@ -18,9 +18,9 @@ namespace Utils
     };
     template<typename Type,
         template<typename...>
-        typename CurrentCondition,
+        class CurrentCondition,
         template<typename...>
-        typename... RemainingConditions,
+        class... RemainingConditions,
         typename CurrentResult,
         typename... RemainingResults,
         typename Default>
@@ -30,7 +30,7 @@ namespace Utils
     };
     template<typename Type,
             template<typename ...>
-            typename Condition,
+            class Condition,
             typename Result,
             typename Default
             >
