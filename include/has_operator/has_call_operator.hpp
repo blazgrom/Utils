@@ -5,10 +5,8 @@ namespace utilitybz
 {
     template<typename T,
     typename=void>
-    struct has_operator : std::false_type{} ;
+    struct has_call_operator : std::false_type{} ;
     
     template<typename T>
-    struct has_operator<T,void_t<decltype(&T::operator())>> : std::true_type{};
-
-
+    struct has_call_operator<T,void_t<decltype(&T::operator())>> : std::true_type{};
 }
